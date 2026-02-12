@@ -5,47 +5,75 @@
 body {
     margin: 0;
     font-family: 'Arial', sans-serif;
-    background: linear-gradient(135deg, #1d2671, #c33764);
+    background: linear-gradient(135deg, #002147, #0056b3);
     color: white;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
+/* HEADER & FOOTER */
+header, footer {
+    text-align: center;
+    padding: 15px 0;
+    background-color: white;
+}
+
+.logo {
+    width: 180px;
+    max-width: 90%;
+}
+
+.footer-logo {
+    opacity: 0.9;
+}
+
+/* SCREEN CONTENT */
 .screen {
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
 }
 
 .hidden {
     display: none;
 }
 
+h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+    color: #ffcc00;
+}
+
 input {
-    padding: 10px;
+    padding: 12px;
     margin: 10px;
-    width: 250px;
+    width: 260px;
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 8px;
     border: none;
 }
 
 button {
-    padding: 12px 25px;
+    padding: 12px 30px;
     margin: 10px;
     font-size: 16px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    background-color: #00c6ff;
+    background-color: #ffcc00;
     color: black;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
 button:hover {
-    background-color: #00a6d6;
+    background-color: #ffd633;
 }
 
+/* BOARD */
 .board {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -55,8 +83,8 @@ button:hover {
 }
 
 .cell {
-    background-color: rgba(255,255,255,0.9);
-    color: black;
+    background-color: white;
+    color: #002147;
     height: 100px;
     font-size: 60px;
     font-weight: bold;
@@ -72,13 +100,13 @@ button:hover {
     transform: scale(1.05);
 }
 
-
+/* TURN TEXT */
 #turnText {
     font-size: 26px;
     margin-bottom: 20px;
 }
 
-
+/* WINNER ANIMATION */
 .winner {
     animation: pop 1s infinite alternate;
 }
@@ -90,14 +118,18 @@ button:hover {
     }
     to {
         transform: scale(1.2);
-        color: #ffeb3b;
+        color: #ffcc00;
     }
 }
 
-
+/* RESPONSIVE */
 @media (max-width: 500px) {
     .cell {
         height: 80px;
         font-size: 45px;
+    }
+
+    .logo {
+        width: 140px;
     }
 }
