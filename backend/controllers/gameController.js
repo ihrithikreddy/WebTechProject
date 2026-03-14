@@ -1,39 +1,30 @@
-const Game = require("../models/game");
+const driver = require("../config/db");
 
 exports.saveGame = async (req, res) => {
-    try {
-        const game = new Game(req.body);
-        await game.save();
-        res.json({ message: "Game saved" });
-    } catch (err) {
-        res.status(500).json(err);
-    }
-};
+  const session = driver.session({ database: "neo4j" });
 
-exports.getHistory = async (req, res) => {
-    const games = await Game.find().sort({date:-1}).limit(10);
-    res.json(games);
-};
+  const { playerX, playerO, winner, moves, timeTaken } = req.body;
 
-exports.getLeaderboard = async (req, res) => {
+  try {
 
-    const leaderboard = await Game.aggregate([
-        { $match: { winner: { $ne: "Draw" } } },
-        {
-            $group: {
-                _id: "$winner",
-                wins: { $sum: 1 }
-            }
-        },
-        { $sort: { wins: -1 } }
-    ]);
+    await session.run(
+      `CREATE (g:Game {
+        playerX:$playerX,
+        playerO:$playerO,
+        winner:$winner,
+        moves:$moves,
+        timeTaken:$timeTaken
+      })`,
+      { playerX, playerO, winner, moves, timeTaken }
+    );
 
-    res.json(leaderboard);
-};
+    res.json({ message: "Game saved successfully in Neo4j" });
 
-exports.fastestWin = async (req, res) => {
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Error saving game" });
 
-    const game = await Game.findOne().sort({ duration: 1 });
-
-    res.json(game);
+  } finally {
+    await session.close();
+  }
 };

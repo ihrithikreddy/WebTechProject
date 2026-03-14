@@ -1,14 +1,8 @@
-const mongoose = require("mongoose");
+const neo4j = require("neo4j-driver");
 
-const connectDB = async () => {
-    try {
-        await mongoose.connect("mongodb://127.0.0.1:27017/tictactoe");
+const driver = neo4j.driver(
+  "bolt://localhost:7687",
+  neo4j.auth.basic("neo4j", "sai872005")
+);
 
-        console.log("MongoDB Connected");
-    } catch (error) {
-        console.error(error);
-        process.exit(1);
-    }
-};
-
-module.exports = connectDB;
+module.exports = driver;

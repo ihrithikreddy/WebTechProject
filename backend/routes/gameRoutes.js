@@ -1,10 +1,8 @@
 const express = require("express");
 const router = express.Router();
 
-const { saveGame, getHistory, getLeaderboard } = require("../controllers/gameController");
+const gameController = require("../controllers/gameController");
 
-router.post("/save", saveGame);
-router.get("/history", getHistory);
-router.get("/leaderboard", getLeaderboard);
+router.post("/save", gameController.saveGame);
 
 module.exports = router;
