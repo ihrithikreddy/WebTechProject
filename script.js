@@ -116,7 +116,7 @@ function quitGame(){
 
 function saveGame(playerX, playerO, winner, moves, timeTaken){
 
-    fetch("http://localhost:5000/api/game/save",{
+    fetch("https://web-tech-project-pi.vercel.app/api/game/save",{
 
         method:"POST",
         headers:{
