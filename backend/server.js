@@ -11,7 +11,7 @@ const app = express();
 app.use(cors({
   origin: [
     "https://web-tech-project-ssid.vercel.app",
-    "https://funtimeinweb.vercel.app/",
+    "https://funtimeinweb.vercel.app",
     "http://localhost:5500",
     "http://127.0.0.1:5500"
   ],
