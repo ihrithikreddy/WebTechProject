@@ -41,13 +41,11 @@ function makeMove(index){
     moveCount++;
 
     if(checkWin()){
-
         endGame(`${getCurrentPlayerName()} Wins! 🎉`);
         return;
     }
 
     if(!board.includes("")){
-
         endGame("It's a Draw 🤝");
         return;
     }
@@ -58,18 +56,15 @@ function makeMove(index){
 }
 
 function updateTurnText(){
-
     document.getElementById("turn").innerText =
         `${getCurrentPlayerName()}'s Turn (${currentPlayer})`;
 }
 
 function getCurrentPlayerName(){
-
     return currentPlayer === "X" ? playerX : playerO;
 }
 
 function checkWin(){
-
     return winningCombos.some(combo =>
         combo.every(i => board[i] === currentPlayer)
     );
@@ -89,6 +84,7 @@ function endGame(text){
 
     let winner = text.includes("Draw") ? "Draw" : getCurrentPlayerName();
 
+    // ✅ Save to backend
     saveGame(playerX, playerO, winner, moveCount, gameTime);
 }
 
@@ -110,29 +106,32 @@ function playAgain(){
 }
 
 function quitGame(){
-
     location.reload();
 }
 
 function saveGame(playerX, playerO, winner, moves, timeTaken){
 
-    fetch("https://web-tech-project-pi.vercel.app/api/game/save",{
+    fetch("https://webtech-backend-eciu.onrender.com/api/game/save", {  // ✅ FIXED URL
 
-        method:"POST",
-        headers:{
-            "Content-Type":"application/json"
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
         },
 
         body: JSON.stringify({
-            playerX:playerX,
-            playerO:playerO,
-            winner:winner,
-            moves:moves,
-            timeTaken:timeTaken
+            playerX: playerX,
+            playerO: playerO,
+            winner: winner,
+            moves: moves,
+            timeTaken: timeTaken
         })
 
     })
     .then(res => res.json())
-    .then(data => console.log("Game saved:",data))
-    .catch(err => console.error("Error saving game:",err));
+    .then(data => {
+        console.log("Game saved:", data);
+    })
+    .catch(err => {
+        console.error("Error saving game:", err);
+    });
 }
