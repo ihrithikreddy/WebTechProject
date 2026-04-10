@@ -7,10 +7,11 @@ const gameRoutes = require("./routes/gameRoutes");
 
 const app = express();
 
-// Fix CORS - allow your frontend URL specifically
+// CORS
 app.use(cors({
   origin: [
     "https://web-tech-project-ssid.vercel.app",
+    "https://funtimeinweb.vercel.app/",
     "http://localhost:5500",
     "http://127.0.0.1:5500"
   ],
@@ -21,6 +22,12 @@ app.use(cors({
 app.use(express.json());
 app.use("/api/game", gameRoutes);
 
+// Connect DB
 connectDB();
 
-module.exports = app;
+// 🚀 START SERVER (THIS WAS MISSING)
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

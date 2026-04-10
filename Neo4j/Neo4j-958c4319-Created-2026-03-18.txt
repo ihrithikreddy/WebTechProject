@@ -1,0 +1,18 @@
+# Wait 60 seconds before connecting using these details, or login to https://console.neo4j.io to validate the Aura Instance is available
+NEO4J_URI=neo4j+s://958c4319.databases.neo4j.io
+NEO4J_USERNAME=958c4319
+NEO4J_PASSWORD=z3jImBds3DB-88kF_zVVlHvRNU3pWgV1GzK-zKZjjAU
+NEO4J_DATABASE=958c4319
+AURA_INSTANCEID=958c4319
+AURA_INSTANCENAME=tictactoe-db
+
+
+1. Result game graph:
+MATCH (p:Player)-[r]->(g:Game)
+RETURN p, r, g
+
+2. See all games:
+MATCH (px:Player)-[r1:PLAYED_AS_X]->(g:Game)<-[r2:PLAYED_AS_O]-(po:Player)
+OPTIONAL MATCH (winner:Player)-[r3:WON]->(g)
+OPTIONAL MATCH (g)-[r4:ENDED_IN_DRAW]->(d:DrawResult)
+RETURN px, po, g, winner, d, r1, r2, r3, r4
